@@ -1,0 +1,41 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center center;
+  background-color: white;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: 2em 1fr 1.5em;
+  grid-gap: 1.5em;
+  place-items: center center;
+  width: 96%;
+  height: 96%;
+}
+
+/* Chromebook ----------- */
+@media only screen
+and (min-device-width : 1366px)
+and (orientation: landscape) {
+  
+}
+
+/* Samsung Note8 portrait*/
+@media only screen 
+and (min-device-width: 414px) 
+and (orientation: portrait) { 
+  /* Your Styles... */ 
+  
+}
+
+/* Samsung Note8 landscape */
+@media only screen
+and (min-device-width: 846px)
+and (orientation: landscape) {
+   /* Your Styles... */ 
+}
