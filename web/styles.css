@@ -8,19 +8,15 @@ html, body {
 }
 .app {
   width: 94%;
-  height: 96%;
+  
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-gap: .25em;
+  grid-template-rows: auto auto;
+  grid-gap: 1em;
 }
-.header, .footer {
+.header {
   width: 100%;
   display: grid;
   place-items: center center;
-}
-
-.footer {
-  place-items: center start;
 }
 
 .hidden {
@@ -29,8 +25,9 @@ html, body {
 
 .content {
   display: grid;
-  grid-template-rows: 3em 3em 3em 5em;
+  grid-template-rows: auto auto auto auto;
   place-items: center center;
+  gap: 1em;
 }
 
 .routes, .directions, .stops {
@@ -38,8 +35,6 @@ html, body {
   grid-template-columns: 100px 450px;
   place-items: center center;
 }
-
-/** test comment **/
 
 .container>select {
   width: 400px;

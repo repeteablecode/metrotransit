@@ -18,9 +18,9 @@ let getRoutes = () => {
     setStatus('routes received..')
     routes.forEach((route) => {
       let opt = document.createElement('option')
-      let txt = document.createTextNode(route.Description)
+      let txtNode = document.createTextNode(route.Description)
       opt.value = route.Route
-      opt.appendChild(txt)
+      opt.appendChild(txtNode)
       selRoute.appendChild(opt)
     })
     unhide('routes')
@@ -32,11 +32,11 @@ let routePicked = (event) => {
   let dex = event.target.selectedIndex
   routeNumber = event.target.options[dex].value
   let ep = `${endpoint}/Directions/${routeNumber}?format=JSON`
-  setStatus('fetching directions...')
+  setStatus(`${routeNumber} - fetching directions...`)
   fetch(ep)
   .then((response) => response.json())
   .then((directions) => {
-    setStatus('directions received...')
+    setStatus('${routeNumber} - directions received...')
     directions.forEach((direction) => {
       let opt = document.createElement('option')
       let txt = document.createTextNode(direction.Text)
@@ -52,11 +52,11 @@ let directionPicked = (event) => {
   let dex = event.target.selectedIndex
   directional = event.target.options[dex].value
   let ep = `${endpoint}/Stops/${routeNumber}/${directional}?format=JSON`
-  setStatus('fetching stops...')
+  setStatus(`${routeNumber} - ${directional} - fetching stops...`)
   fetch(ep)
   .then((response) => response.json())
   .then((stops) => {
-    setStatus('stops received...')
+    setStatus('${routeNumber} - ${directional} - stops received...')
     stops.forEach((stop) => {
       let opt = document.createElement('option')
       let txt = document.createTextNode(stop.Text)
@@ -72,15 +72,15 @@ let stopPicked = (event) => {
   let dex = event.target.selectedIndex;
   stop = event.target.options[dex].value
   let ep = `${endpoint}/${routeNumber}/${directional}/${stop}?format=JSON`
-  setStatus("fetching departures...")
+  setStatus(`${routeNumber} - ${directional} - ${stop} - fetching departures...`)
   fetch(ep)
   .then((response) => response.json())
   .then((departures) => {
     setStatus("departures received...")
     departuresList = departures
-    document.querySelector("#arrival").innerText = departures[0].DepartureText
-    setStatus(`Bus arriving at ${departures[0].DepartureText}`)
-    unhide('arrival')
+    let msg = `${routeNumber} - ${directional} - ${stop} - Bus arriving at ${departures[0].DepartureText}`
+    setStatus(msg)
+    
   })
 
 }
