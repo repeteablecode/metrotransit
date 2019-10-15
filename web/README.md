@@ -1,6 +1,6 @@
 # Web Implementation of the MetroTransit NexTrip API
 
-### Purpose
+## Purpose
 An example of how to utilize the api to find out how long until next bus arrives
 
 ### API Details

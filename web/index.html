@@ -4,23 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Repeteable Code</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app">
-    <header>
-      <h2 id="title"></h2>
-    </header>
-    <section>
-      <p>content</p>
-    </section>
-    <footer>
-      <p id="tagline"></p>
-    </footer>
-  </div>
   
-  <script src="index.js">
-  </script>
+  <div class="app">
+    <div class="header">
+      <h2 id="title">title goes here</h2>
+    </div>
+    <div class="content">
+      <div class="routes hidden">
+        <div class="container">
+          <label for="route">Route</label>
+        </div>
+        <div class="container">
+          <select name="route" id="select-route">
+            <option value="">-- Select Option --</option>
+          </select>
+          <i class="material-icons">map</i>
+        </div>
+      </div>
+      <div class="directions hidden">
+        <div class="container">
+          <label for="direction">Direction</label>
+        </div>
+        <div class="container">
+          <select name="direction" id="select-direction">
+            <option value="">-- Select Option --</option>
+          </select>
+          <i class="material-icons">directions</i>
+        </div>
+      </div>
+      <div class="stops hidden">
+        <div class="container">
+          <label for="stop">Stop</label>
+        </div>
+        <div class="container">
+          <select name="stop" id="select-stop">
+            <option value="">-- Select Option --</option>
+          </select>
+          <i class="material-icons">directions_bus</i>
+        </div>
+      </div>
+      <div class="arrival hidden">
+        <h1><small id="arrival">arrival time here</small></h1>
+      </div>
+    </div>
+    <div class="footer">
+      <p id="status">status goes here</p>
+    </div>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>
