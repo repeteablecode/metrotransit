@@ -66,7 +66,6 @@ let directionPicked = (event) => {
     })
     unhide('stops')
   })
-  console.log()
 }
 
 let stopPicked = (event) => {
