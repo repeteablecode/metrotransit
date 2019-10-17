@@ -3,13 +3,24 @@ const endpoint = "https://cors-anywhere.herokuapp.com/https://svc.metrotransit.o
 let routeNumber = "0"
 let directional = "0"
 let stop = "XXXX"
+let stopName = ""
 let departuresList = []
 
 let setStatus = (status) => document.querySelector("#status").innerText = status
-
+let setMarquee = (departuresString) => document.querySelector('#marquee-text').innerText = departuresString
 let unhide = (className) => document.querySelector(`.${className}`).classList.remove('hidden')
+let resetSelects = () => {
+  let opt = selRoute.options[0]
+  selRoute.innerText = ""
+  selRoute.appendChild(opt)
+  selDirection.innerText = ""
+  selDirection.appendChild(opt)
+  selStop.innerText = ""
+  selStop.appendChild(opt)
+}
 
 let getRoutes = () => {
+  
   let routesEndpoint = `${endpoint}/Routes?format=JSON`
   setStatus('fetching routes...')
   fetch(routesEndpoint)
@@ -24,11 +35,20 @@ let getRoutes = () => {
       selRoute.appendChild(opt)
     })
     unhide('routes')
+    selRoute.focus()
   })
   .catch((err) => { throw Error(err)} )
 }
 
 let routePicked = (event) => {
+  let opt = selRoute.options[0]
+  
+  console.log(event.target.options.length)
+
+  if (selStop.options.lengh > 1) {
+    selStop.innerText = ""
+    selStop.appendChild(opt)
+  }
   let dex = event.target.selectedIndex
   routeNumber = event.target.options[dex].value
   let ep = `${endpoint}/Directions/${routeNumber}?format=JSON`
@@ -36,7 +56,7 @@ let routePicked = (event) => {
   fetch(ep)
   .then((response) => response.json())
   .then((directions) => {
-    setStatus('${routeNumber} - directions received...')
+    setStatus(`${routeNumber} - directions received...`)
     directions.forEach((direction) => {
       let opt = document.createElement('option')
       let txt = document.createTextNode(direction.Text)
@@ -45,10 +65,16 @@ let routePicked = (event) => {
       selDirection.appendChild(opt)
     })
     unhide('directions')
+    selDirection.focus()
   })
+
 }
 
 let directionPicked = (event) => {
+  let opt = selRoute.options[0]
+
+  console.log(event.target.options.length)
+
   let dex = event.target.selectedIndex
   directional = event.target.options[dex].value
   let ep = `${endpoint}/Stops/${routeNumber}/${directional}?format=JSON`
@@ -56,7 +82,7 @@ let directionPicked = (event) => {
   fetch(ep)
   .then((response) => response.json())
   .then((stops) => {
-    setStatus('${routeNumber} - ${directional} - stops received...')
+    setStatus(`${routeNumber} - ${directional} - stops received...`)
     stops.forEach((stop) => {
       let opt = document.createElement('option')
       let txt = document.createTextNode(stop.Text)
@@ -65,6 +91,7 @@ let directionPicked = (event) => {
       selStop.appendChild(opt)
     })
     unhide('stops')
+    selStop.focus()
   })
 }
 
@@ -79,7 +106,23 @@ let stopPicked = (event) => {
     setStatus("departures received...")
     departuresList = departures
     let msg = `${routeNumber} - ${directional} - ${stop} - Bus arriving at ${departures[0].DepartureText}`
+    
     setStatus(msg)
+    unhide('departure-list')
+    let departList = document.querySelector("#next-departures-list")
+    let tStop = event.target.options[dex].innerText
+    let tDescription = departures[0].Description
+    let tGate = departures[0].Gate
+    let tHeading = departures[0].RouteDirection
+    document.querySelector("#departure-list-details").innerText = `Departing ${tStop} ${tDescription} at Gate ${tGate} heading ${tHeading}`
+
+    departures.forEach((depart) => {
+      console.log(JSON.stringify(depart,null,2))
+      let item = document.createElement('li')
+      let text = document.createTextNode(`${depart.DepartureText}`)
+      item.appendChild(text)
+      departList.appendChild(item)
+    })
     
   })
 
